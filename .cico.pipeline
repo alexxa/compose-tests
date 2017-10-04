@@ -90,7 +90,7 @@ node('fedora-qa'){
     } finally {
         try {
             stage('Archive the Logs'){
-                nmyduffynode '''
+                onmyduffynode '''
                 if [[ -s error.log ]]; then rm -rf error.log; else currentBuild.result = "FAILED"; fi
                 '''
                 syncfromduffynode('*.log')
