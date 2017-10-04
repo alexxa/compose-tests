@@ -31,5 +31,5 @@
         - '{ci_project}-{ci_project_name}':
             git_username: fedora-modularity
             git_repo: compose-tests
-            ci_job_name: compose-tester
+            ci_job_name: compose_tester
             ci_project: fedora-qa
