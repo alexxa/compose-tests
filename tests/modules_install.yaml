@@ -13,5 +13,8 @@
     - name: log installed modules
       raw: docker exec "{{ container_name }}" bash -l -c "dnf module list --installed" >> installed_modules.log
 
+    - name: log enabled modules
+      raw: docker exec "{{ container_name }}" bash -l -c "dnf module list --enabled" >> enabled_modules.log
+
   ignore_errors: yes
   tags: tests, modules_install

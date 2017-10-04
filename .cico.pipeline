@@ -12,11 +12,17 @@ def syncfromduffynode(rsyncpath){
 
 def notifyBuild(String buildStatus = 'STARTED') {
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
-    emailext attachmentsPattern: 'compose-tests/*.log', body: "See: ${env.BUILD_URL}artifact/compose-tests/mod_install_results.log", subject: "[${env.JOB_NAME}] Build #${env.BUILD_NUMBER}: ${buildStatus}", to: 'igulina@redhat.com'
+    emailext body: "${env.EMAIL_BODY}", subject: "Fedora-Modular-Bikeshed: FAIL: ${env.FAILED_MOD} modules", to: 'igulina@redhat.com'
 }
 
 node('fedora-qa'){
-
+    environment { 
+        EMAIL_BODY = ' '
+        FAILED_MOD = ' '
+        MY_URL = ' '
+    }
+    
+    
     stage('Allocate Node'){
         env.CICO_API_KEY = readFile("${env.HOME}/duffy.key").trim()
         duffy_rtn=sh(
@@ -79,9 +85,14 @@ node('fedora-qa'){
         */
         stage('Parse Logs') {
             onmyduffynode '''cd compose-tests &&
-            failed_mod=$(sed -n \'/^TASK/{ x; /failed:/p; d; }; /failed:/H; \\${ x; /failed:/p; }\' output.log >> error.log &&
-            bash tests/parse_output.sh tests/f27_modules.yaml >> mod_install_results.log
-            '''
+            sed -n \'/^TASK/{ x; /failed:/p; d; }; /failed:/H; \\${ x; /failed:/p; }\' output.log >> raw_error.log &&
+            bash tests/error.sh &&
+            bash tests/parse_output.sh tests/f27_modules.yaml >> mod_install_results.log &&
+            rm -f raw_error.log enabled_modules.log isntalled_modules.log &&
+            echo ---------------------------------------------------------------------- >> mod_install_results.log &&
+            echo [1] ${BUILD_URL}artifact/compose-tests/error.log >> mod_install_results.log &&
+            echo [2] ${BUILD_URL}artifact/compose-tests/output.log >> mod_install_results.log &&
+            if [[ -s error.log ]]; then exit 1; fi'''
         }
 
     }catch (e){
@@ -90,11 +101,13 @@ node('fedora-qa'){
     } finally {
         try {
             stage('Archive the Logs'){
-                onmyduffynode '''
-                if [[ -s error.log ]]; then rm -rf error.log; else exit 1; fi
-                '''
+                println("Print my id: "+currentBuild.id) 
+                //sh(script:'echo "${currentBuild.id}" >> mod_install_results.log', returnStdout: true)
                 syncfromduffynode('*.log')
                 archiveArtifacts('compose-tests/*.log')
+                env.EMAIL_BODY = readFile('compose-tests/mod_install_results.log').trim()
+                env.FAILED_MOD = sh(script: 'grep "failed:" compose-tests/error.log | wc -l', returnStdout: true)
+
             }
         } catch (e){
             currentBuild.result = "FAILED"
