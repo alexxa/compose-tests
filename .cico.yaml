@@ -4,7 +4,7 @@
         - timed: "@daily"
 
 - job-template:
-    name: '{ci_project}-{git_repo}'
+    name: '{ci_project}-{ci_project_name}'
     description: |
         Managed by Jenkins Job Builder, do not edit manually!
     properties:
@@ -28,7 +28,8 @@
 - project:
     name: fedora-qa
     jobs:
-        - '{ci_project}-{git_repo}':
+        - '{ci_project}-{ci_project_name}':
             git_username: fedora-modularity
             git_repo: compose-tests
+            ci_job_name: compose-tester
             ci_project: fedora-qa
