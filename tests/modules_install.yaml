@@ -2,13 +2,19 @@
 
     - name: get list of all modules to install
       raw: docker exec "{{ container_name }}" bash -l -c "dnf module list | sed -e '1,/Name/d' | grep -Eo '^[^ ]+'"
-      register: all_modules_list 
+      register: all_modules_list
 
-    - name: install all modules
+    - name: install all modules individually
+      raw: docker exec "{{ container_name }}" bash -l -c "dnf module install '{{ item }}' -y && dnf module remove '{{ item }}' -y"
+      #with_items: "{{ all_modules_list.stdout_lines }}"
+      with_lines: cat tests/f27_modules.yaml
+      #when: ("PYTHONCOERCECLOCALE" not in item) or ("dnf" not in item)
+
+    - name: install all modules together
       raw: docker exec "{{ container_name }}" bash -l -c "dnf module install '{{ item }}' -y"
       #with_items: "{{ all_modules_list.stdout_lines }}"
       with_lines: cat tests/f27_modules.yaml
-      when: ("PYTHONCOERCECLOCALE" not in item) or ("dnf" not in item)
+      #when: ("PYTHONCOERCECLOCALE" not in item) or ("dnf" not in item)
 
     - name: log installed modules
       raw: docker exec "{{ container_name }}" bash -l -c "dnf module list --installed" >> installed_modules.log

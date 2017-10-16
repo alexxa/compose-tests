@@ -16,7 +16,6 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
             printf "%-25s =>  %-25s\n" "$line" "Error: See logs [1, 2]"
 	elif $(grep -q "$line" "$installed_modules"); then
 	    printf "%-25s =>  %-25s\n" "$line" "installed"
-	    echo  "$item"
 	elif $(grep -q "$line" "$enabled_modules"); then
             printf "%-25s =>  %-25s\n" "$line" "enabled"
 	else
