@@ -106,7 +106,7 @@ node('fedora-qa'){
                 syncfromduffynode('*.log')
                 archiveArtifacts('compose-tests/*.log')
                 env.EMAIL_BODY = readFile('compose-tests/mod_install_results.log').trim()
-                env.FAILED_MOD = sh(script: 'awk -F"[()]" "{print $2}" compose-tests/error.log | sort | uniq | wc -l', returnStdout: true)
+                env.FAILED_MOD = sh(script: 'awk -F"[()]" "{print $2}" compose-tests/error.log | cut -d"=" -f2 | sed s,/default,, | sort | uniq | wc -l', returnStdout: true)
 
             }
         } catch (e){
