@@ -12,7 +12,7 @@ printf "\n%-25s =>  %-25s\n" "MODULE" "STATE"
 echo "----------------------------------------------------------------------"
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
-        if $(grep "^$line$" "$failed_modules"); then
+        if $(grep -q "^$line$" "$failed_modules"); then
             printf "%-25s =>  %-25s\n" "$line" "Error: See logs [1, 2]"
 	elif $(grep -q "$line" "$installed_modules"); then
 	    printf "%-25s =>  %-25s\n" "$line" "installed"
