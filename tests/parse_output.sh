@@ -2,7 +2,7 @@
 
 installed_modules='installed_modules.log'
 enabled_modules='enabled_modules.log'
-failed_modules=$(awk -F"[()]" '{print $2}' error.log | cut -d'=' -f2 | sed s,/default,, | sort | uniq)
+failed_modules=$(grep -oP ".*?(?= =>)" error.log | sed s,/default,, | sort | uniq)
 failed_modules_amount=$(cat $failed_modules | wc -l)
 
 sed '/Last metadata expiration/Q' installed_modules.log

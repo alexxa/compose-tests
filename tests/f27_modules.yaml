@@ -6,12 +6,10 @@ cloud-init
 fonts
 freeipa
 hardware-support
-help2man
 host
 httpd
 installer
 java
-krb5
 mariadb
 maven
 mysql
