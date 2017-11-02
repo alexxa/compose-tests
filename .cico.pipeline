@@ -89,7 +89,6 @@ node('fedora-qa'){
             sed -n \'/^TASK/{ x; /failed:/p; d; }; /failed:/H; \\${ x; /failed:/p; }\' output.log >> raw_error.log &&
             bash tests/error.sh &&
             bash tests/parse_output.sh tests/f27_modules.yaml >> mod_install_results.log &&
-            rm -f raw_error.log enabled_modules.log isntalled_modules.log &&
             echo ---------------------------------------------------------------------- >> mod_install_results.log &&
             echo [1] ${BUILD_URL}artifact/compose-tests/error.log >> mod_install_results.log &&
             echo [2] ${BUILD_URL}artifact/compose-tests/output.log >> mod_install_results.log &&

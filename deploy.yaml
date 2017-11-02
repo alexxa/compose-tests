@@ -9,6 +9,7 @@
   become: yes
   become_method: sudo
   vars:
+    image_tag: "bikeshed"
     container_name: "bikeshed_container"
     compose: "{{ compose|mandatory }}"
   tasks:
@@ -37,16 +38,8 @@
       tags: pull_image
 
     - name: rename docker image if pulled
-      command: docker tag "{{ compose }}":latest bikeshed:latest
+      command: docker tag "{{ compose }}":latest "{{ image_tag }}":latest
       tags: pull_image
-
-    - name: create a data container
-      docker_container:
-        name: "{{ container_name }}"
-        image: bikeshed
-        state: started
-        command: sleep infinity
-      tags: create_container
 
     - include: tests/quick_mini_test.yaml
     - include: tests/modules_install.yaml
