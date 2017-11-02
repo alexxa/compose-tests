@@ -14,6 +14,7 @@ cloud-init
 cloud-init/default
 fonts
 fonts/default
+fonts/everything
 freeipa
 freeipa/default
 gtk2
@@ -28,6 +29,8 @@ installer
 installer/default
 java
 java/default
+libtom
+libtom/default
 mariadb
 mariadb/default
 mariadb/client
@@ -36,6 +39,8 @@ maven
 maven/default
 mongodb
 mongodb/default
+mongodb/client
+mongodb/server
 mysql
 mysql/default
 mysql/server
@@ -52,10 +57,10 @@ nodejs
 nodejs/default
 nodejs/development
 nodejs/minimal
-nodejs
-nodejs/default
-nodejs/development
-nodejs/minimal
+nodejs:8
+nodejs:8/default
+nodejs:8/development
+nodejs:8/minimal
 passanger
 passanger/default
 perl
@@ -71,6 +76,9 @@ platform/srpm-buildroot
 postgresql
 postgresql/default
 postgresql/client
+postgresql:9.6
+postgresql:9.6/default
+postgresql:9.6/client
 python2
 python2/default
 python2/full

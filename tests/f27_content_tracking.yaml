@@ -1,0 +1,45 @@
+commited:
+        - cloud-init
+        - freeipa
+        - postgreql
+        - postgreql:9.6
+        - udisks2
+        - installer
+        - 389-ds
+        - X11-base
+        - apache-commons
+        - bind
+        - fonts
+        - hardware-support
+        - httpd
+        - java
+        - networking-base
+        - perl
+        - pki
+        - python2
+        - python2-ecosystem
+        - python3
+        - python3-ecosystem
+        - resteasy
+        - samba
+        - sssd
+        - tomcat
+targeted: 
+        - autools
+        - gtk2
+        - gtk3
+        - systemtap
+        - texlive
+proposed:
+        - cassandra
+        - mariadb
+        - mongodb
+        - mysql
+        - nginx
+        - nis
+        - nodejs:8
+        - passenger
+        - php
+        - redis
+        - ruby
+        - varnish

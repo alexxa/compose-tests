@@ -13,6 +13,7 @@ host
 httpd
 installer
 java
+libtom
 mariadb
 maven
 mongodb
@@ -22,13 +23,14 @@ nginx
 ninja
 nis
 nodejs
-nodejs
+nodejs:8
 passanger
 perl
 php
 pki
 platform
 postgresql
+postgresql:9.6
 python2
 python2-ecosystem
 python3

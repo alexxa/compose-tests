@@ -1,9 +1,10 @@
 #!/bin/bash
 
 failed_modules=$(grep -oP ".*?(?= =>)" error.log | sed s,/default,, | sort | uniq)
-failed_modules_amount=$(cat $failed_modules | wc -l)
 
-sed '/Last metadata expiration/Q' installed_modules.log
+python tests/parse_yaml.py
+
+sed '/Last metadata expiration/Q' modules_list.log
 
 echo "----------------------------------------------------------------------"
 printf "\n%-25s =>  %-25s\n" "MODULE" "STATE"
