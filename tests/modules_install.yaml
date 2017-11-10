@@ -5,15 +5,15 @@
       register: all_modules_list
 
     - name: install all modules individually
-      raw: docker run "{{ image_tag }}" bash -l -c "dnf module install '{{ item }}' -y"
+      raw: docker run "{{ image_tag }}" bash -l -c "dnf module install '{{ item }}'  -y"
       #with_items: "{{ all_modules_list.stdout_lines }}"
       with_lines: cat tests/f27_modules_all_profiles.yaml
       #when: ("PYTHONCOERCECLOCALE" not in item) or ("dnf" not in item)
 
-    - name: install all modules together
-      raw: docker run "{{ image_tag }}" bash -l -c "dnf module install '{{ item }}' -y"
+      #- name: install all modules together
+      #raw: docker run "{{ image_tag }}" bash -l -c "dnf module install '{{ item }}' -y"
       #with_items: "{{ all_modules_list.stdout_lines }}"
-      with_lines: cat tests/f27_modules.yaml
+      #with_lines: cat tests/f27_modules.yaml
       #when: ("PYTHONCOERCECLOCALE" not in item) or ("dnf" not in item)
 
     - name: log module list

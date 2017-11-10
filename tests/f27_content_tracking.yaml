@@ -2,7 +2,6 @@ commited:
         - cloud-init
         - freeipa
         - postgreql
-        - postgreql:9.6
         - udisks2
         - installer
         - 389-ds
@@ -11,11 +10,13 @@ commited:
         - bind
         - fonts
         - hardware-support
+        - host
         - httpd
         - java
         - networking-base
         - perl
         - pki
+        - platform
         - python2
         - python2-ecosystem
         - python3

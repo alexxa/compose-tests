@@ -2,6 +2,7 @@
 
 failed_modules=$(grep -oP ".*?(?= =>)" error.log | sed s,/default,, | sort | uniq)
 
+printf "For HTML report see [0]\n\n"
 python tests/parse_yaml.py
 
 sed '/Last metadata expiration/Q' modules_list.log

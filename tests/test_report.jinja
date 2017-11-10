@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>F27 Modular Server Testing Results</title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+    </head>
+
+    <body id="home">
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">F27 Modular Server - Test Results</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h1></h1>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            <h3 class="panel-title"><b>Committed modules</b></h3>
+                            <span class="text-muted">(Blocking release)</span>
+                        </div>
+                        <div class="panel-body text-center">
+			    <span style="font-size:4em">{{ results['commited'][-1] }}</span>
+                            <span style="font-size:3em">%</span>
+                            <br>
+                            <span>modules passed tests</span>
+                            <hr>
+                            <div class="row ">
+                                <div class="col-sm-4 text-center">
+				<span style="font-size:2em">{{ results['commited'][0] }}</span>
+                                    <br>
+                                    <span>total</span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+				<span style="font-size:2em">{{ results['commited'][1] }}</span>
+                                    <br>
+                                    <span>succeeded</span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+				<span style="font-size:2em">{{ results['commited'][2] }}</span>
+                                    <br>
+                                    <span>failed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            <h3 class="panel-title"><b>Targeted modules</b></h3>
+                            <span class="text-muted">(Important, non-blocking)</span>
+                        </div>
+                        <div class="panel-body text-center">
+                            <span style="font-size:4em">{{ results['targeted'][-1] }}</span>
+                            <span style="font-size:3em">%</span>
+                            <br>
+                            <span>modules passed tests</span>
+                            <hr>
+                            <div class="row ">
+                                <div class="col-sm-4 text-center">
+                                <span style="font-size:2em">{{ results['targeted'][0] }}</span>
+                                    <br>
+                                    <span>total</span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                <span style="font-size:2em">{{ results['targeted'][1] }}</span>
+                                    <br>
+                                    <span>succeeded</span>
+                                </div>
+                                <div class="col-sm-4 text-center">
+                                <span style="font-size:2em">{{ results['targeted'][2] }}</span>
+				    <br>
+                                    <span>failed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h3 class="panel-title"><b>Compose details</b></h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Compose version:</dt>
+			<dd>{{ compose_version }}</dd>
+                        <dt>DNF version:</dt>
+			<dd>{{ dnf_version }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            <h3 class="panel-title"><b>List of committed modules</b></h3>
+                            <span class="text-muted">(Blocking release)</span>
+                        </div>
+                        <table class="table">
+			    <tr>
+                                <th>Name</th>
+                                <th>Stream</th>
+                                <th>Status</th>
+                            </tr>
+                            {% for item in modules_commited %}
+			        {% if item in failed_modules %}
+                                    <tr class="danger">
+                                    <td><b> {{ item }}</b></td>
+                                    <td>{{ streams[item] }}</td>
+                                    <td>failed</td>
+                                {% else %}
+			            <tr class="success">
+                                    <td><b> {{ item }}</b></td>
+                                    <td>{{ streams[item] }}</td>
+                                    <td>succeeded</td>
+                                {% endif %}
+                                </tr>
+			    {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            <h3 class="panel-title"><b>List of targeted modules</b></h3>
+                            <span class="text-muted">(Important, non-blocking)</span>
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Stream</th>
+                                <th>Status</th>
+                            </tr>
+			    {% for item in modules_targeted %}
+                                {% if item in failed_modules %}
+                                    <tr class="danger">
+                                    <td><b> {{ item }}</b></td>
+                                    <td>{{ streams[item] }}</td>
+                                    <td>failed</td>
+                                {% else %}
+                                    <tr class="success">
+                                    <td><b> {{ item }}</b></td>
+                                    <td>{{ streams[item] }}</td>
+                                    <td>succeeded</td>
+                                {% endif %}
+                                </tr>
+                            {% endfor %}
+			</table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

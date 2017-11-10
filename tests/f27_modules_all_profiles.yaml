@@ -76,9 +76,6 @@ platform/srpm-buildroot
 postgresql
 postgresql/default
 postgresql/client
-postgresql:9.6
-postgresql:9.6/default
-postgresql:9.6/client
 python2
 python2/default
 python2/full

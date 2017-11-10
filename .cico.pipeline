@@ -12,7 +12,7 @@ def syncfromduffynode(rsyncpath){
 
 def notifyBuild(String buildStatus = 'STARTED') {
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
-    emailext body: "${env.EMAIL_BODY}", subject: "Fedora-Modular-Bikeshed: FAIL: ${env.FAILED_MOD} of ${env.TOTAL_PROFILES} profiles", to: 'igulina@redhat.com, langdon@fedoraproject.org'
+    emailext body: "${env.EMAIL_BODY}", subject: "Fedora-Modular-Bikeshed: FAIL: ${env.FAILED_MOD} of ${env.TOTAL_PROFILES} profiles", to: 'igulina@redhat.com, langdon@fedoraproject.org, mhatina@redhat.com, asamalik@redhat.com'
 }
 
 node('fedora-qa'){
@@ -90,6 +90,7 @@ node('fedora-qa'){
             bash tests/error.sh &&
             bash tests/parse_output.sh tests/f27_modules.yaml >> mod_install_results.log &&
             echo ---------------------------------------------------------------------- >> mod_install_results.log &&
+            echo [0] ${BUILD_URL}artifact/compose-tests/test_results.html >> mod_install_results.log &&
             echo [1] ${BUILD_URL}artifact/compose-tests/error.log >> mod_install_results.log &&
             echo [2] ${BUILD_URL}artifact/compose-tests/output.log >> mod_install_results.log &&
             if [[ -s error.log ]]; then exit 1; fi'''
@@ -104,7 +105,11 @@ node('fedora-qa'){
                 println("Print my id: "+currentBuild.id) 
                 //sh(script:'echo "${currentBuild.id}" >> mod_install_results.log', returnStdout: true)
                 syncfromduffynode('*.log')
+                syncfromduffynode('*.html')
+                syncfromduffynode('compose-tests/css/*.css')
                 archiveArtifacts('compose-tests/*.log')
+                archiveArtifacts('compose-tests/*.html')
+                archiveArtifacts('compose-tests/css/*.css')
                 env.EMAIL_BODY = readFile('compose-tests/mod_install_results.log').trim()
                 env.FAILED_MOD = sh(script: 'grep -oP ".*?(?= =>)" compose-tests/error.log | sed s,/default,, | sort | uniq | wc -l', returnStdout: true)
                 env.TOTAL_PROFILES = sh(script: 'sed s,/default,, compose-tests/tests/f27_modules_all_profiles.yaml | sort | uniq | wc -l', returnStdout: true)

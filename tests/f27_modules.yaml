@@ -30,7 +30,6 @@ php
 pki
 platform
 postgresql
-postgresql:9.6
 python2
 python2-ecosystem
 python3

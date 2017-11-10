@@ -32,6 +32,12 @@
         state: latest
       tags: env_setup
 
+    - name: install numpy
+      package:
+        name: numpy
+        state: latest
+      tags: env_setup
+
     - name: pull a docker image
       command: docker pull "{{ compose }}"
       ignore_errors: false
