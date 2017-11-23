@@ -2,6 +2,7 @@
 apache-commons
 autotools
 bind
+boost
 cassandra
 cloud-init
 fonts
@@ -39,6 +40,7 @@ resteasy
 ruby
 samba
 sssd
+system-tools
 systemtap
 texlive
 tomcat

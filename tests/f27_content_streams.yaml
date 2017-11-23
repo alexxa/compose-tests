@@ -15,12 +15,13 @@ networking-base: f27
 perl: 5.26
 pki: 10.4
 python2: 2.7
-python2-ecosystem: master
+python2-ecosystem: f27
 python3: 3.6
-python3-ecosystem: master
+python3-ecosystem: f27
 resteasy: 3.1
 samba: 4.7
 sssd: 1
+system-tools: 2017.0
 tomcat: 8
 autools: f27
 gtk2: f27

@@ -8,6 +8,8 @@ bind
 bind/default
 bind/client
 bind/server
+boost
+boost/development
 cassandra
 cassandra/default
 cloud-init
@@ -30,7 +32,6 @@ installer/default
 java
 java/default
 libtom
-libtom/default
 mariadb
 mariadb/default
 mariadb/client
@@ -96,6 +97,8 @@ samba
 samba/default
 sssd
 sssd/default
+system-tools
+system-tools/default
 systemtap
 systemtap/default
 texlive

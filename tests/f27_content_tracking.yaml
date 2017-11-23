@@ -24,6 +24,7 @@ commited:
         - resteasy
         - samba
         - sssd
+        - system-tools
         - tomcat
 targeted: 
         - autools
@@ -32,6 +33,7 @@ targeted:
         - systemtap
         - texlive
 proposed:
+        - boost
         - cassandra
         - mariadb
         - mongodb
