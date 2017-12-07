@@ -12,7 +12,7 @@ def syncfromduffynode(rsyncpath){
 
 def notifyBuild(String buildStatus = 'STARTED') {
     buildStatus =  buildStatus ?: 'SUCCESSFUL'
-    emailext body: "${env.EMAIL_BODY}", subject: "Fedora-Modular-Bikeshed: FAIL: ${env.FAILED_MOD} of ${env.TOTAL_PROFILES} profiles", to: 'igulina@redhat.com, langdon@fedoraproject.org, mhatina@redhat.com, asamalik@redhat.com'
+    emailext body: "${env.EMAIL_BODY}", subject: "Fedora-Modular-Bikeshed: FAIL: ${env.FAILED_MOD} of ${env.TOTAL_PROFILES} profiles", to: 'igulina@redhat.com'
 }
 
 node('fedora-qa'){
